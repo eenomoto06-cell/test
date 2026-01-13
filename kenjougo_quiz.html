@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>謙譲語 正しい？間違ってる？ゲーム</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2em;
+      background-color: #f0f8ff;
+    }
+    .quiz-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 2em;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+      font-size: 1em;
+      padding: 0.8em 1.5em;
+      margin: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .start-btn {
+      background-color: orange;
+      color: white;
+    }
+    .answer-btn {
+      background-color: #ddd;
+    }
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+    .incorrect {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-box">
+    <h1>【謙譲語 正しい？間違ってる？ゲーム】</h1>
+    <div id="quiz">
+      <p>10問のテストに挑戦してみましょう！</p>
+      <button class="start-btn" onclick="startQuiz()">▶ ゲームスタート</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "（来客に）部長がそのように言っておりました。",
+        correct: false,
+        note: "→ 『申しておりました』が適切"
+      },
+      {
+        q: "それについては知っております。",
+        correct: false,
+        note: "→ 『存じ上げております』が適切"
+      },
+      {
+        q: "本日は何人で予約していますか？",
+        correct: false,
+        note: "→ 『何名様でご予約いただいておりますでしょうか？』が適切"
+      },
+      {
+        q: "トイレはあっちです。",
+        correct: false,
+        note: "→ 『お化粧室はあちらでございます』が適切"
+      },
+      {
+        q: "お忘れ物のないよう、どうぞお気をつけくださいませ。",
+        correct: true,
+        note: "→ 適切な謙譲語表現です"
+      },
+      {
+        q: "お名刺を１枚お出しください。",
+        correct: false,
+        note: "→ 『お名刺を１枚頂戴できますでしょうか。』が適切"
+      },
+      {
+        q: "時間なので退出してください。",
+        correct: false,
+        note: "→ 『お時間でございますので、ご退室をお願いいたします。』が適切"
+      },
+      {
+        q: "申し訳ございません。私では分かりかねます。担当者に確認しますので少々お待ちください。",
+        correct: true,
+        note: "→ 適切な謙譲語表現です"
+      },
+      {
+        q: "こちら本日の資料でございます。ご覧ください。",
+        correct: true,
+        note: "→ 適切な謙譲語表現です"
+      },
+      {
+        q: "係の者が来ます。少々お待ちください。",
+        correct: false,
+        note: "→ 『係の者が参ります。』が適切"
+      }
+    ];
+
+    let current = 0;
+
+    function startQuiz() {
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const quizDiv = document.getElementById('quiz');
+      const q = questions[current];
+      quizDiv.innerHTML = `
+        <h2>問${current + 1}</h2>
+        <p>${q.q}</p>
+        <button class="answer-btn" onclick="checkAnswer(true)">〇 正しい</button>
+        <button class="answer-btn" onclick="checkAnswer(false)">× 間違っている</button>
+      `;
+    }
+
+    function checkAnswer(answer) {
+      const result = questions[current];
+      const quizDiv = document.getElementById('quiz');
+      const isCorrect = answer === result.correct;
+
+      quizDiv.innerHTML = `
+        <h2>問${current + 1} 結果</h2>
+        <p>${result.q}</p>
+        <p class="${isCorrect ? 'correct' : 'incorrect'}">
+          ${isCorrect ? '正解！' : '不正解'}
+        </p>
+        <p>${result.note}</p>
+        ${current + 1 < questions.length ? `<button onclick="nextQuestion()">次の問題へ</button>` : `<p>テスト終了！お疲れさまでした。</p>`}
+      `;
+    }
+
+    function nextQuestion() {
+      current++;
+      showQuestion();
+    }
+  </script>
+</body>
+</html>
